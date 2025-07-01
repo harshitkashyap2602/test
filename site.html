@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Under Construction Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      }
+    </style>
+  </head>
+
+  <body class="flex items-center justify-center min-h-screen p-6 bg-gradient-to-r from-blue-100 to-green-100">
+    <div class="bg-white shadow-2xl rounded-3xl max-w-4xl w-full grid md:grid-cols-2 overflow-hidden animate__animated animate__fadeInUp">
+
+      <!-- Animation Side -->
+      <div class="bg-gradient-to-tr from-blue-200 to-green-300 p-6 flex items-center justify-center">
+        <lottie-player
+          src="https://assets5.lottiefiles.com/packages/lf20_Cc8Bpg.json"
+          background="transparent"
+          speed="1"
+          style="width: 100%; height: 300px"
+          loop
+          autoplay
+        ></lottie-player>
+      </div>
+
+      <!-- Message Side -->
+      <div class="p-10 flex flex-col justify-center text-center md:text-left">
+        <h1 class="text-3xl font-extrabold text-[#002D74] animate__animated animate__bounceInDown">
+          🚧 Site Under Construction
+        </h1>
+        <p class="text-gray-600 mt-4 text-sm animate__animated animate__fadeInUp animate__delay-1s">
+          We are working hard to bring you something amazing! Our dashboard is under development.
+        </p>
+
+        <!-- Countdown (optional, you can remove this) -->
+        <div class="flex justify-center md:justify-start gap-4 mt-6 text-white text-sm">
+          <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+            <p id="days" class="text-lg font-bold">--</p>
+            <span>Days</span>
+          </div>
+          <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+            <p id="hours" class="text-lg font-bold">--</p>
+            <span>Hours</span>
+          </div>
+          <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+            <p id="minutes" class="text-lg font-bold">--</p>
+            <span>Minutes</span>
+          </div>
+        </div>
+
+        <a
+          href="mailto:support@example.com"
+          class="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-300 animate__animated animate__fadeInUp animate__delay-2s"
+        >
+          Contact Support
+        </a>
+      </div>
+    </div>
+
+    <!-- Countdown Script -->
+    <script>
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + 10); // Set 10 days from now
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+      }
+
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>

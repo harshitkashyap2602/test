@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - Under Construction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-r from-blue-100 to-green-100 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold text-[#002D74]">KingKiller Dashboard</div>
+        <div class="hidden md:flex gap-6 items-center">
+          <a href="dashboard.html" class="text-gray-700 hover:text-blue-500 font-medium">Home</a>
+          <a href="profile.html" class="text-gray-700 hover:text-blue-500 font-medium">Profile</a>
+          <a href="support.html" class="text-gray-700 hover:text-blue-500 font-medium">Support</a>
+          <a href="#" class="text-gray-700 hover:text-blue-500 font-medium">Settings</a>
+
+          <!-- Dropdown -->
+          <div x-data="{ open: false }" class="relative">
+            <button @click="open = !open" class="text-gray-700 hover:text-blue-500 font-medium flex items-center">
+              More
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div x-show="open" @click.away="open = false"
+              class="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg py-2 z-50">
+              <a href="term.html" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Privacy Policy</a>
+              <a href="term.html" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Terms of Service</a>
+              <a href="404.html" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">404 Page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Under Construction Section -->
+    <main class="flex-1 flex items-center justify-center p-6">
+      <div class="bg-white shadow-2xl rounded-3xl max-w-5xl w-full grid md:grid-cols-2 overflow-hidden animate__animated animate__fadeInUp">
+
+        <!-- Lottie Animation -->
+        <div class="bg-gradient-to-tr from-blue-200 to-green-300 p-6 flex items-center justify-center">
+          <lottie-player
+            src="https://assets5.lottiefiles.com/packages/lf20_Cc8Bpg.json"
+            background="transparent"
+            speed="1"
+            style="width: 100%; height: 300px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+
+        <!-- Text Message -->
+        <div class="p-10 flex flex-col justify-center text-center md:text-left">
+          <h1 class="text-3xl font-extrabold text-[#002D74] animate__animated animate__bounceInDown">
+            🚧 Site Under Construction
+          </h1>
+          <p class="text-gray-600 mt-4 text-sm animate__animated animate__fadeInUp animate__delay-1s">
+            We are working hard to bring you something amazing! Our dashboard is under development.
+          </p>
+
+          <!-- Countdown Timer -->
+          <div class="flex justify-center md:justify-start gap-4 mt-6 text-white text-sm">
+            <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+              <p id="days" class="text-lg font-bold">--</p>
+              <span>Days</span>
+            </div>
+            <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+              <p id="hours" class="text-lg font-bold">--</p>
+              <span>Hours</span>
+            </div>
+            <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+              <p id="minutes" class="text-lg font-bold">--</p>
+              <span>Minutes</span>
+            </div>
+            <div class="bg-blue-500 rounded-xl px-4 py-2 animate__animated animate__pulse animate__infinite">
+              <p id="seconds" class="text-lg font-bold">--</p>
+              <span>Sec</span>
+            </div>
+          </div>
+
+          <!-- Progress Bar Fixed to 20% -->
+          <div class="mt-6 w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+            <div id="progress" class="bg-blue-500 h-full w-[20%] transition-all duration-700"></div>
+          </div>
+          <p class="text-sm text-gray-600 mt-2"><span id="percent">20%</span> completed</p>
+
+          <a
+            href="support.html"
+            class="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-300 animate__animated animate__fadeInUp animate__delay-2s"
+          >
+            Contact Support
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-10">
+      <div class="max-w-7xl mx-auto py-6 px-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+        <p>&copy; 2025 KingKiller-Tech. All rights reserved.</p>
+        <div class="flex gap-4 mt-4 md:mt-0">
+          <a href="term.html" class="hover:text-blue-500">Privacy</a>
+          <a href="term.html" class="hover:text-blue-500">Terms</a>
+          <a href="support.html" class="hover:text-blue-500">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Countdown Script with Fixed Progress -->
+    <script>
+      const start = Date.now();
+      const end = new Date().setDate(new Date().getDate() + 10);
+
+      function update() {
+        const now = Date.now();
+        const diff = end - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = d >= 0 ? d : 0;
+        document.getElementById("hours").textContent = h >= 0 ? h : 0;
+        document.getElementById("minutes").textContent = m >= 0 ? m : 0;
+        document.getElementById("seconds").textContent = s >= 0 ? s : 0;
+
+        // Fixed progress bar to 20%
+        document.getElementById("progress").style.width = '20%';
+        document.getElementById("percent").textContent = '20%';
+      }
+
+      setInterval(update, 1000);
+      update();
+    </script>
+  </body>
+</html>

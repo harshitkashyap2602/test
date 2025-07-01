@@ -1,0 +1,65 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+  <div class="bg-white rounded-3xl shadow-xl max-w-xl w-full p-10">
+    <h2 class="text-2xl font-bold text-[#002D74] mb-6 text-center">👤 Your Profile</h2>
+    <div class="space-y-4 text-sm">
+      <div>
+        <label class="block text-gray-600">Name</label>
+        <input id="profile-name" type="text" class="w-full px-4 py-2 bg-gray-100 border rounded-lg" />
+      </div>
+      <div>
+        <label class="block text-gray-600">Email</label>
+        <input id="profile-email" type="email" class="w-full px-4 py-2 bg-gray-100 border rounded-lg" readonly />
+      </div>
+      <button
+        id="save-btn"
+        class="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold">
+        Save Changes
+      </button>
+    </div>
+    <a href="dashboard.html" class="block mt-6 text-blue-600 text-center text-sm hover:underline">Back to Dashboard</a>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    import { firebaseConfig } from './firebase-config.js';
+
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById("profile-name").value = user.displayName || '';
+        document.getElementById("profile-email").value = user.email;
+      }
+    });
+
+    document.getElementById("save-btn").addEventListener("click", async () => {
+      const name = document.getElementById("profile-name").value;
+      const user = auth.currentUser;
+      try {
+        await updateProfile(user, { displayName: name });
+        alert("Profile updated!");
+      } catch (e) {
+        alert("Update failed: " + e.message);
+      }
+    });
+  </script>
+</body>
+</html>

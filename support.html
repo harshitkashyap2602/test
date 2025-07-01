@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animate.css for toast animation -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+  <!-- Wrapper -->
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl grid md:grid-cols-2 overflow-hidden animate__animated animate__fadeInUp">
+
+    <!-- Lottie Animation -->
+    <div class="bg-gradient-to-tr from-blue-200 to-green-300 flex items-center justify-center p-6">
+      <lottie-player
+        src="https://assets6.lottiefiles.com/packages/lf20_puciaact.json"
+        background="transparent"
+        speed="1"
+        style="width: 100%; height: 300px"
+        loop
+        autoplay>
+      </lottie-player>
+    </div>
+
+    <!-- Form Section -->
+    <div class="p-8 md:p-10">
+      <h2 class="text-3xl font-bold text-[#002D74] mb-4">Contact Support</h2>
+      <p class="text-sm text-gray-600 mb-6">Fill out the form below and our team will get back to you shortly.</p>
+
+      <form id="support-form" class="space-y-5">
+        <div>
+          <label class="block text-gray-700">Full Name</label>
+          <input type="text" name="name" placeholder="Your full name"
+            class="w-full px-4 py-3 mt-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+        </div>
+
+        <div>
+          <label class="block text-gray-700">Email Address</label>
+          <input type="email" name="email" placeholder="Your email"
+            class="w-full px-4 py-3 mt-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+        </div>
+
+        <div>
+          <label class="block text-gray-700">Subject</label>
+          <input type="text" name="subject" placeholder="Issue subject"
+            class="w-full px-4 py-3 mt-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-blue-400" required />
+        </div>
+
+        <div>
+          <label class="block text-gray-700">Message</label>
+          <textarea name="message" rows="4" placeholder="Describe your issue"
+            class="w-full px-4 py-3 mt-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-blue-400" required></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition duration-300">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase Firestore Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Firebase Config
+    import { firebaseConfig } from './firebase-config.js';
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Handle Form Submit
+    document.getElementById('support-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const subject = this.subject.value.trim();
+      const message = this.message.value.trim();
+
+      if (!name || !email || !subject || !message) {
+        showToast("❗ All fields are required.", "bg-red-500");
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "supportMessages"), {
+          name,
+          email,
+          subject,
+          message
+        });
+
+        showToast("✅ Your query has been submitted. We will contact you soon.", "bg-green-500");
+        this.reset();
+      } catch (error) {
+        showToast("❌ Error: " + error.message, "bg-red-500");
+      }
+    });
+
+    // Custom Toast Function
+    function showToast(message, color = "bg-green-500") {
+      const toast = document.createElement('div');
+      toast.className = `fixed bottom-6 right-6 ${color} text-white px-6 py-4 rounded-lg shadow-lg z-50 animate__animated animate__fadeInUp`;
+      toast.innerText = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("animate__fadeOutDown");
+        setTimeout(() => toast.remove(), 1000);
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>
