@@ -88,49 +88,19 @@
     </div>
   </div>
 
-  <!-- Firebase Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signInWithPopup,
-      GoogleAuthProvider
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    import { firebaseConfig } from './firebase-config.js';
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-
-    // Login with email/password (no popup check)
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
+  <!-- Dummy Redirect Script (Firebase Disabled) -->
+  <script>
+    // 🔒 Bypassing Firebase for testing only
+    document.getElementById("login-form").addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      try {
-        const result = await signInWithEmailAndPassword(auth, email, password);
-        alert("✅ Logged in as: " + (result.user.displayName || result.user.email));
-        window.location.href = "dashboard.html";
-      } catch (error) {
-        alert("❌ Login Error: " + error.message);
-      }
+      window.location.href = "dashboard.html"; // 👈 Direct redirect
     });
 
-    // Google Login (no popup/modal)
-    document.getElementById("google-login").addEventListener("click", async () => {
-      try {
-        const result = await signInWithPopup(auth, provider);
-        alert("✅ Google Login Successful: " + (result.user.displayName || result.user.email));
-        window.location.href = "dashboard.html";
-      } catch (error) {
-        alert("❌ Google Login Error: " + error.message);
-      }
+    // Optional: disable Google login or redirect it too
+    document.getElementById("google-login").addEventListener("click", () => {
+      window.location.href = "dashboard.html"; // 👈 Fake Google login
     });
   </script>
+
 </body>
 </html>
